@@ -1,0 +1,64 @@
+﻿@model Practica1.Model;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+ 
+@{
+    string Change = "Change";
+    string SelectModel = "";
+    int SelectBrand = 0;
+    int SelectID = 0;
+    if (ViewBag.CarsModel != null)
+    {
+         SelectID = ViewBag.CarsModel.IdModels;
+        SelectModel = ViewBag.CarsModel.Name;
+        SelectBrand = ViewBag.CarsModel.BrandId;
+        Change = "Change1";
+    }
+}
+
+<form asp-action=@Change asp-controller="home">
+    <p>
+         <label asp-for="IdModels">Номер</label><br />
+         <input  asp-for="IdModels" value="@SelectID" readonly/>
+    </p>
+    <p>
+       
+                <label for="Brand">Бренд</label>
+                <select id="BrandId" name="BrandId">
+                    @foreach (var Brand in ViewBag.Brand)
+            {
+                @if (Brand.IdBrands == SelectBrand)
+                {
+                    <option value="@Brand.IdBrands" selected>@Brand.Name</option>; 
+                }
+                else {<option value="@Brand.IdBrands">@Brand.Name</option>;}
+            }
+            
+                    
+                </select>
+            
+
+        
+    </p>
+    <p>
+        <label asp-for="Name">Модель</label><br />
+        <input type="text" asp-for="Name" value="@SelectModel"/>
+    </p>
+    
+    <p>
+        <label asp-for="Active">Актив</label><br />
+        <select id="Active" name="Active">
+            @if (ViewBag.CarsModel != null && ViewBag.CarsModel.Active)
+            {
+                    <option value="true">true</option>
+                    <option value="false">false</option>
+            }
+            else{
+                    <option value="true">true</option>
+                    <option value="false" selected>false</option>
+            }
+         </select>
+    </p>
+    <p>
+        <input type="submit" value=@ViewData["NewOr"] />
+    </p>
+</form>

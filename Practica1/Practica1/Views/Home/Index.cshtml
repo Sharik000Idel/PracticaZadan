@@ -1,0 +1,47 @@
+﻿
+@{
+    Layout = null;
+    @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+}
+<!doctype html>
+<html>
+<head>
+    <title>Id</title>
+    <meta charset="utf-8" />
+</head>
+<body>   
+    <div>
+       <div>
+            <a asp-controller="Home" asp-action="Change" >Добавить новую</a>
+       
+        <ul class="Brands">
+        
+        @foreach(var CarBrand in ViewBag.CarsBrand)
+        {
+            <h3>@CarBrand.Name</h3>
+            
+            <ul>
+                
+                @foreach(var CarModels in ViewBag.CarsBrandModel){
+                            if (CarModels.BrandId == CarBrand.IdBrands)
+                            {
+                                if (!CarModels.Active)
+                                {
+                                    <li> <a style="color: #808080" asp-controller="Home" asp-action="Change"  asp-route-id="@CarModels.IdModels" >@CarModels.Name</a> </li>
+                                }
+                                else
+                                {
+                                    <li> <a asp-controller="Home" asp-action="Change"  asp-route-id="@CarModels.IdModels" >@CarModels.Name</a> </li>
+                                }
+                                
+                            }
+                }
+            </ul>
+        }
+        </ul>
+    </div>
+
+    </div>
+
+</body> 
